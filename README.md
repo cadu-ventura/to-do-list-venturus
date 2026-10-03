@@ -14,7 +14,7 @@ Lista de tarefas feita com HTML, CSS e JavaScript.
 
 1. Baixe ou clone o repositório:
    ```
-   git clone https://github.com/cadu-ventura/todo-list-venturus.git
+   git clone https://github.com/cadu-ventura/to-do-list-venturus.git
    ```
 2. Abra o arquivo `index.html` no navegador.
 
