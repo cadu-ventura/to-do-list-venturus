@@ -10,6 +10,19 @@ function atualizarContadores() {
   document.getElementById("total-concluidas").innerText = concluidas.children.length;
 }
 
+// Coloca a tarefa em uma coluna e risca se for "Concluídas"
+function moverPara(item, coluna) {
+  coluna.appendChild(item);
+
+  if (coluna == concluidas) {
+    item.classList.add("feita");
+  } else {
+    item.classList.remove("feita");
+  }
+
+  atualizarContadores();
+}
+
 // Quando clicar no botão "Adicionar"
 botao.onclick = function () {
   var texto = campo.value;
@@ -24,9 +37,30 @@ botao.onclick = function () {
   var item = document.createElement("li");
   item.innerText = texto;
 
-  // Coloca o item na coluna "Pendentes"
-  pendentes.appendChild(item);
-  atualizarContadores();
+  // Clicar na tarefa troca de coluna
+  item.onclick = function () {
+    if (item.parentElement == pendentes) {
+      moverPara(item, concluidas);
+    } else {
+      moverPara(item, pendentes);
+    }
+  };
+
+  // Cria o botão de excluir
+  var excluir = document.createElement("button");
+  excluir.innerText = "X";
+  excluir.className = "excluir";
+
+  // Clicar no X apaga a tarefa
+  excluir.onclick = function (evento) {
+    evento.stopPropagation(); // não deixa o clique trocar a tarefa de coluna
+    item.remove();
+    atualizarContadores();
+  };
+
+  // Coloca o botão dentro do item e o item na coluna "Pendentes"
+  item.appendChild(excluir);
+  moverPara(item, pendentes);
 
   // Limpa o campo
   campo.value = "";
